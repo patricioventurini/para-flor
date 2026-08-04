@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Para Flor 💛 3 años</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,500&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#fdf6f0;
+    --blush:#f6dbe0;
+    --rose:#c96b7a;
+    --deep-rose:#a14a5c;
+    --gold:#cba15a;
+    --text:#4a3b3d;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:linear-gradient(180deg,#fdf6f0 0%,#fbeef1 40%,#f7e3e8 100%);
+    font-family:'Quicksand',sans-serif;
+    color:var(--text);
+    overflow-x:hidden;
+    position:relative;
+  }
+
+  /* ---------- FLOATING HEARTS (background, whole page) ---------- */
+  #heartsLayer{
+    position:fixed;
+    inset:0;
+    z-index:1;
+    pointer-events:none;
+    overflow:hidden;
+  }
+  .bg-heart{
+    position:absolute;
+    bottom:-40px;
+    font-size:1.2rem;
+    opacity:0;
+    animation:bgFloat linear forwards;
+    filter:drop-shadow(0 0 4px rgba(255,255,255,.4));
+  }
+  @keyframes bgFloat{
+    0%{transform:translateY(0) translateX(0) rotate(0deg);opacity:0;}
+    8%{opacity:.55;}
+    92%{opacity:.5;}
+    100%{transform:translateY(-115vh) translateX(var(--drift,20px)) rotate(25deg);opacity:0;}
+  }
+
+  /* ---------- COVER ---------- */
+  #cover{
+    position:fixed;
+    inset:0;
+    z-index:999;
+    background:radial-gradient(circle at 50% 30%, #fff5ef 0%, #f3d9de 60%, #e6b9c3 100%);
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:24px;
+    transition:opacity 1s ease, visibility 1s ease;
+  }
+  #cover.hide{opacity:0;visibility:hidden;pointer-events:none;}
+  #cover h1{
+    font-family:'Playfair Display',serif;
+    font-size:2.1rem;
+    color:var(--deep-rose);
+    margin:0 0 6px;
+  }
+  #cover p.sub{
+    font-size:1rem;
+    color:var(--rose);
+    margin:0 0 32px;
+    letter-spacing:.5px;
+  }
+  #openBtn{
+    background:var(--rose);
+    color:#fff;
+    border:none;
+    padding:14px 36px;
+    border-radius:40px;
+    font-family:'Quicksand',sans-serif;
+    font-weight:600;
+    font-size:1rem;
+    letter-spacing:.5px;
+    cursor:pointer;
+    box-shadow:0 8px 20px rgba(161,74,92,.35);
+    transition:transform .2s ease;
+  }
+  #openBtn:active{transform:scale(.96);}
+  .heart-float{
+    position:absolute;
+    font-size:1.4rem;
+    opacity:.6;
+    animation:floatUp 6s linear infinite;
+  }
+  @keyframes floatUp{
+    0%{transform:translateY(0) rotate(0deg);opacity:0;}
+    10%{opacity:.7;}
+    100%{transform:translateY(-100vh) rotate(20deg);opacity:0;}
+  }
+
+  /* ---------- CONTENT ---------- */
+  #content{
+    position:relative;
+    z-index:2;
+    max-width:720px;
+    margin:0 auto;
+    padding:40px 14px 80px;
+  }
+  header.hero{
+    text-align:center;
+    margin-bottom:32px;
+  }
+  header.hero h1{
+    font-family:'Playfair Display',serif;
+    font-style:italic;
+    color:var(--deep-rose);
+    font-size:1.9rem;
+    margin:0 0 6px;
+    animation:heroPulse 3.5s ease-in-out infinite;
+  }
+  @keyframes heroPulse{
+    0%,100%{transform:scale(1);}
+    50%{transform:scale(1.035);}
+  }
+  header.hero p{
+    color:var(--rose);
+    margin:0;
+    font-size:.95rem;
+  }
+
+  /* Counter */
+  #counter{
+    background:rgba(255,255,255,.85);
+    backdrop-filter:blur(6px);
+    border-radius:20px;
+    box-shadow:0 10px 30px rgba(161,74,92,.15);
+    padding:24px 16px;
+    margin:0 0 40px;
+    text-align:center;
+  }
+  #counter .label{
+    font-size:.8rem;
+    text-transform:uppercase;
+    letter-spacing:1.5px;
+    color:var(--gold);
+    font-weight:600;
+    margin-bottom:14px;
+  }
+  .counter-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:8px;
+  }
+  .counter-grid .box{
+    background:var(--blush);
+    border-radius:14px;
+    padding:10px 4px;
+    transition:transform .25s ease;
+  }
+  .counter-grid .box:hover{transform:translateY(-3px);}
+  .counter-grid .num{
+    font-family:'Playfair Display',serif;
+    font-size:1.5rem;
+    font-weight:700;
+    color:var(--deep-rose);
+    display:block;
+    line-height:1.1;
+  }
+  .counter-grid .unit{
+    font-size:.65rem;
+    text-transform:uppercase;
+    letter-spacing:.5px;
+    color:var(--rose);
+  }
+  #counter .since{
+    margin-top:14px;
+    font-size:.8rem;
+    color:#9c7c81;
+  }
+
+  /* ---------- GALLERY (masonry) ---------- */
+  #gallery{
+    column-count:2;
+    column-gap:10px;
+  }
+  @media(min-width:560px){
+    #gallery{column-count:3;}
+  }
+  .tile{
+    break-inside:avoid;
+    margin-bottom:10px;
+    border-radius:16px;
+    overflow:hidden;
+    box-shadow:0 8px 20px rgba(161,74,92,.14);
+    opacity:0;
+    transform:translateY(30px) scale(.95);
+    transition:opacity .6s ease, transform .6s ease;
+    cursor:pointer;
+    position:relative;
+  }
+  .tile.visible{opacity:1;transform:translateY(0) scale(1);}
+  .tile img{
+    width:100%;
+    display:block;
+    transition:transform .5s ease, filter .5s ease;
+    filter:saturate(.92);
+  }
+  .tile:active img{transform:scale(1.06);}
+  @media(hover:hover){
+    .tile:hover img{transform:scale(1.07);filter:saturate(1.1);}
+    .tile:hover{box-shadow:0 14px 30px rgba(161,74,92,.28);}
+  }
+  .tile::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:linear-gradient(180deg, rgba(0,0,0,0) 70%, rgba(161,74,92,.35) 100%);
+    opacity:0;
+    transition:opacity .35s ease;
+  }
+  @media(hover:hover){
+    .tile:hover::after{opacity:1;}
+  }
+
+  /* ---------- LIGHTBOX ---------- */
+  #lightbox{
+    position:fixed;
+    inset:0;
+    background:rgba(30,10,15,.92);
+    z-index:1000;
+    display:none;
+    align-items:center;
+    justify-content:center;
+    touch-action:pan-y;
+  }
+  #lightbox.open{display:flex;}
+  #lightbox img{
+    max-width:92vw;
+    max-height:80vh;
+    border-radius:10px;
+    box-shadow:0 10px 40px rgba(0,0,0,.5);
+    animation:popIn .25s ease;
+  }
+  @keyframes popIn{
+    0%{transform:scale(.9);opacity:0;}
+    100%{transform:scale(1);opacity:1;}
+  }
+  #lightbox .lb-close{
+    position:absolute;
+    top:18px;
+    right:20px;
+    color:#fff;
+    font-size:1.8rem;
+    background:none;
+    border:none;
+    cursor:pointer;
+    opacity:.85;
+  }
+  #lightbox .lb-nav{
+    position:absolute;
+    top:50%;
+    transform:translateY(-50%);
+    background:rgba(255,255,255,.15);
+    border:none;
+    color:#fff;
+    font-size:1.6rem;
+    width:44px;
+    height:44px;
+    border-radius:50%;
+    cursor:pointer;
+  }
+  #lightbox .lb-prev{left:12px;}
+  #lightbox .lb-next{right:12px;}
+  #lightbox .lb-count{
+    position:absolute;
+    bottom:18px;
+    left:50%;
+    transform:translateX(-50%);
+    color:#fff;
+    opacity:.75;
+    font-size:.8rem;
+    letter-spacing:1px;
+  }
+
+  footer.closing{
+    text-align:center;
+    margin-top:36px;
+    padding-top:20px;
+  }
+  footer.closing .heart{
+    font-size:2rem;
+    margin-bottom:6px;
+    display:inline-block;
+    animation:heroPulse 2.2s ease-in-out infinite;
+  }
+  footer.closing .sign{
+    font-family:'Playfair Display',serif;
+    font-style:italic;
+    color:var(--gold);
+    font-size:1.1rem;
+  }
+
+  #musicBox{
+    position:fixed;
+    bottom:-1px;
+    left:-1px;
+    width:1px;
+    height:1px;
+    overflow:hidden;
+    opacity:0;
+    pointer-events:none;
+  }
+</style>
+</head>
+<body>
+
+<div id="heartsLayer"></div>
+
+<div id="cover">
+  <div class="heart-float" style="left:15%;">💗</div>
+  <div class="heart-float" style="left:45%;animation-delay:1.5s;">💛</div>
+  <div class="heart-float" style="left:70%;animation-delay:3s;">💗</div>
+  <div class="heart-float" style="left:85%;animation-delay:.7s;">💛</div>
+  <h1>Para Flor</h1>
+  <button id="openBtn">Abrir 💌</button>
+</div>
+
+<div id="content">
+
+  <header class="hero">
+    <h1>Flor &amp; Patricio</h1>
+    <p>3 años juntos — y contando</p>
+  </header>
+
+  <div id="counter">
+    <div class="label">Estamos juntos hace</div>
+    <div class="counter-grid">
+      <div class="box"><span class="num" id="c-years">0</span><span class="unit">Años</span></div>
+      <div class="box"><span class="num" id="c-months">0</span><span class="unit">Meses</span></div>
+      <div class="box"><span class="num" id="c-days">0</span><span class="unit">Días</span></div>
+      <div class="box"><span class="num" id="c-total-days">0</span><span class="unit">Total días</span></div>
+    </div>
+    <div class="since" id="c-clock">00:00:00</div>
+    <div class="since">Desde el 9 de agosto de 2023 💛</div>
+  </div>
+
+  <div id="gallery"></div>
+
+  <footer class="closing">
+    <div class="heart">💛</div>
+    <div class="sign">Te amo — Patricio</div>
+  </footer>
+
+</div>
+
+<div id="lightbox">
+  <button class="lb-close" id="lbClose">✕</button>
+  <button class="lb-nav lb-prev" id="lbPrev">‹</button>
+  <img id="lbImg" src="" alt="">
+  <button class="lb-nav lb-next" id="lbNext">›</button>
+  <div class="lb-count" id="lbCount"></div>
+</div>
+
+<div id="musicBox"></div>
+
+<script>
+// ---------- Photo data ----------
+// Coloca las 19 fotos originales (con sus nombres tal cual las mandaste) dentro
+// de una carpeta llamada "fotos", en el mismo lugar donde está este archivo index.html.
+const photoFiles = [
+  "WhatsApp Image 2026-08-04 at 12.18.36 PM.jpeg",
+  "WhatsApp Image 2026-08-04 at 12.18.36 PM (1).jpeg",
+  "WhatsApp Image 2026-08-04 at 12.18.37 PM.jpeg",
+  "WhatsApp Image 2026-08-04 at 12.18.37 PM (1).jpeg",
+  "WhatsApp Image 2026-08-04 at 12.18.37 PM (2).jpeg",
+  "WhatsApp Image 2026-08-04 at 12.18.37 PM (3).jpeg",
+  "WhatsApp Image 2026-08-04 at 12.18.37 PM (4).jpeg",
+  "WhatsApp Image 2026-08-04 at 12.18.38 PM.jpeg",
+  "WhatsApp Image 2026-08-04 at 12.18.38 PM (1).jpeg",
+  "WhatsApp Image 2026-08-04 at 12.18.38 PM (2).jpeg",
+  "WhatsApp Image 2026-08-04 at 12.18.38 PM (3).jpeg",
+  "WhatsApp Image 2026-08-04 at 12.18.39 PM.jpeg",
+  "WhatsApp Image 2026-08-04 at 12.18.39 PM (1).jpeg",
+  "WhatsApp Image 2026-08-04 at 12.18.39 PM (2).jpeg",
+  "WhatsApp Image 2026-08-04 at 12.18.39 PM (3).jpeg",
+  "WhatsApp Image 2026-08-04 at 12.18.40 PM.jpeg",
+  "WhatsApp Image 2026-08-04 at 12.18.40 PM (1).jpeg",
+  "WhatsApp Image 2026-08-04 at 12.18.40 PM (2).jpeg",
+  "WhatsApp Image 2026-08-04 at 12.18.40 PM (3).jpeg"
+];
+const IMG_BASE = "fotos/"; // carpeta donde van las fotos originales
+
+const gallery = document.getElementById('gallery');
+photoFiles.forEach((file, i) => {
+  const tile = document.createElement('div');
+  tile.className = 'tile';
+  tile.style.transitionDelay = (i % 6) * 0.06 + 's';
+  const img = document.createElement('img');
+  img.src = IMG_BASE + encodeURIComponent(file);
+  img.alt = 'Foto ' + (i+1);
+  img.dataset.index = i;
+  img.onerror = function(){
+    tile.style.background = '#fee3e3';
+    tile.innerHTML = '<div style="padding:10px;font-size:10px;color:#a33;word-break:break-all;line-height:1.4;">No cargó:<br>' + file + '</div>';
+    tile.classList.add('visible');
+  };
+  tile.appendChild(img);
+  tile.addEventListener('click', () => openLightbox(i));
+  gallery.appendChild(tile);
+});
+
+// Reveal tiles on scroll
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('visible'); obs.unobserve(e.target); } });
+}, { threshold: 0.12 });
+document.querySelectorAll('.tile').forEach(t => obs.observe(t));
+
+// ---------- Lightbox ----------
+const lightbox = document.getElementById('lightbox');
+const lbImg = document.getElementById('lbImg');
+const lbCount = document.getElementById('lbCount');
+let currentIndex = 0;
+
+function openLightbox(i){
+  currentIndex = i;
+  showImage();
+  lightbox.classList.add('open');
+}
+function showImage(){
+  lbImg.src = IMG_BASE + encodeURIComponent(photoFiles[currentIndex]);
+  lbCount.textContent = (currentIndex+1) + ' / ' + photoFiles.length;
+}
+function closeLightbox(){ lightbox.classList.remove('open'); }
+function nextImage(){ currentIndex = (currentIndex+1) % photoFiles.length; showImage(); }
+function prevImage(){ currentIndex = (currentIndex-1+photoFiles.length) % photoFiles.length; showImage(); }
+
+document.getElementById('lbClose').addEventListener('click', closeLightbox);
+document.getElementById('lbNext').addEventListener('click', nextImage);
+document.getElementById('lbPrev').addEventListener('click', prevImage);
+lightbox.addEventListener('click', (e) => { if(e.target === lightbox) closeLightbox(); });
+document.addEventListener('keydown', (e) => {
+  if(!lightbox.classList.contains('open')) return;
+  if(e.key === 'Escape') closeLightbox();
+  if(e.key === 'ArrowRight') nextImage();
+  if(e.key === 'ArrowLeft') prevImage();
+});
+
+// Swipe support
+let touchStartX = 0;
+lightbox.addEventListener('touchstart', (e) => { touchStartX = e.changedTouches[0].screenX; });
+lightbox.addEventListener('touchend', (e) => {
+  const dx = e.changedTouches[0].screenX - touchStartX;
+  if(dx > 50) prevImage();
+  else if(dx < -50) nextImage();
+});
+
+// ---------- Floating hearts (background, whole page) ----------
+const heartsLayer = document.getElementById('heartsLayer');
+const heartEmojis = ['💗','💛','✨','💕'];
+function spawnHeart(){
+  const h = document.createElement('div');
+  h.className = 'bg-heart';
+  h.textContent = heartEmojis[Math.floor(Math.random()*heartEmojis.length)];
+  h.style.left = Math.random()*100 + '%';
+  h.style.setProperty('--drift', (Math.random()*60-30) + 'px');
+  const duration = 9 + Math.random()*6;
+  h.style.animationDuration = duration + 's';
+  h.style.fontSize = (1 + Math.random()*1.2) + 'rem';
+  heartsLayer.appendChild(h);
+  setTimeout(() => h.remove(), duration*1000 + 500);
+}
+setInterval(spawnHeart, 900);
+for(let i=0;i<5;i++) setTimeout(spawnHeart, i*300);
+
+// ---------- Live counter ----------
+const startDate = new Date(2023, 7, 9, 0, 0, 0); // 9 de agosto de 2023
+
+function updateCounter(){
+  const now = new Date();
+  let years = now.getFullYear() - startDate.getFullYear();
+  let months = now.getMonth() - startDate.getMonth();
+  let days = now.getDate() - startDate.getDate();
+  let hours = now.getHours() - startDate.getHours();
+  let mins = now.getMinutes() - startDate.getMinutes();
+  let secs = now.getSeconds() - startDate.getSeconds();
+
+  if (secs < 0) { secs += 60; mins--; }
+  if (mins < 0) { mins += 60; hours--; }
+  if (hours < 0) { hours += 24; days--; }
+  if (days < 0) {
+    const prevMonth = new Date(now.getFullYear(), now.getMonth(), 0);
+    days += prevMonth.getDate();
+    months--;
+  }
+  if (months < 0) { months += 12; years--; }
+
+  document.getElementById('c-years').textContent = years;
+  document.getElementById('c-months').textContent = months;
+  document.getElementById('c-days').textContent = days;
+  const totalDays = Math.floor((now - startDate) / 86400000);
+  document.getElementById('c-total-days').textContent = totalDays;
+  document.getElementById('c-clock').textContent =
+    String(hours).padStart(2,'0') + ':' + String(mins).padStart(2,'0') + ':' + String(secs).padStart(2,'0');
+}
+updateCounter();
+setInterval(updateCounter, 1000);
+
+// ---------- Cover + music ----------
+document.getElementById('openBtn').addEventListener('click', function(){
+  document.getElementById('cover').classList.add('hide');
+  const box = document.getElementById('musicBox');
+  const iframe = document.createElement('iframe');
+  iframe.width = "1";
+  iframe.height = "1";
+  iframe.style.border = "0";
+  iframe.allow = "autoplay";
+  iframe.src = "https://www.youtube.com/embed/xJPAvsL0ky4?autoplay=1&start=0&loop=1&playlist=xJPAvsL0ky4";
+  box.appendChild(iframe);
+}, { once:true });
+</script>
+
+</body>
+</html>
